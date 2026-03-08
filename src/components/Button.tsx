@@ -12,12 +12,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={cn(
-          "inline-flex items-center justify-center rounded-full font-medium transition-all focus:outline-none focus:ring-2 focus:ring-neuro-primary/50 disabled:opacity-50 disabled:pointer-events-none",
+          "inline-flex items-center justify-center rounded-xl font-medium transition-all focus:outline-none focus:ring-2 focus:ring-blue-500/30 disabled:opacity-50 disabled:pointer-events-none",
           {
-            'bg-gradient-to-r from-neuro-primary to-blue-500 text-neuro-900 shadow-[0_0_20px_rgba(0,240,255,0.3)] hover:shadow-[0_0_30px_rgba(0,240,255,0.5)]': variant === 'primary',
-            'bg-white/10 text-white hover:bg-white/20 border border-white/5': variant === 'secondary',
-            'border border-neuro-primary/50 text-neuro-primary hover:bg-neuro-primary/10': variant === 'outline',
-            'hover:bg-white/10 text-slate-300 hover:text-white': variant === 'ghost',
+            'bg-gradient-to-r from-fusion-orange to-fusion-orange-dark text-white shadow-[0_0_20px_rgba(249,115,22,0.35)] hover:shadow-[0_0_30px_rgba(249,115,22,0.5)] hover:scale-[1.03]': variant === 'primary',
+            'bg-white/[0.05] text-white hover:bg-white/10 border border-white/[0.08]': variant === 'secondary',
+            'border border-blue-500/40 text-blue-400 hover:bg-blue-500/10': variant === 'outline',
+            'hover:bg-white/[0.06] text-slate-400 hover:text-white': variant === 'ghost',
             'h-9 px-4 text-sm': size === 'sm',
             'h-11 px-6 text-base': size === 'md',
             'h-14 px-8 text-lg font-semibold': size === 'lg',

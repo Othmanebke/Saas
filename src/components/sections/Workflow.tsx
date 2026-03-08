@@ -1,81 +1,164 @@
 import { motion } from 'framer-motion'
-import { Card } from '../Card'
-import { CheckCircle2 } from 'lucide-react'
+import { CheckCircle2, ArrowDown } from 'lucide-react'
+
+const STEPS = [
+  {
+    label: 'Trigger: New Customer Signup',
+    color: '#3B82F6',
+    glow: 'rgba(59,130,246,0.25)',
+    bg: 'rgba(59,130,246,0.08)',
+    border: 'rgba(59,130,246,0.35)',
+  },
+  {
+    label: 'Condition: Enterprise Plan?',
+    color: '#F59E0B',
+    glow: 'rgba(245,158,11,0.2)',
+    bg: 'rgba(245,158,11,0.06)',
+    border: 'rgba(245,158,11,0.25)',
+  },
+  {
+    label: 'Action: Notify Sales Team via Slack',
+    color: '#F97316',
+    glow: 'rgba(249,115,22,0.25)',
+    bg: 'rgba(249,115,22,0.08)',
+    border: 'rgba(249,115,22,0.4)',
+  },
+]
 
 export function Workflow() {
   return (
-    <section id="workflow" className="py-32 relative overflow-hidden bg-neuro-900/40">
-      {/* Background patterns */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,240,255,0.05)_0,rgba(6,11,25,0)_100%)] pointer-events-none" />
-      
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        
+    <section id="workflow" className="py-28 bg-black relative overflow-hidden">
+      {/* Dot grid pattern */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px)',
+          backgroundSize: '40px 40px',
+        }}
+      />
+      <div
+        className="absolute left-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle, rgba(249,115,22,0.08) 0%, transparent 70%)',
+          filter: 'blur(50px)',
+        }}
+      />
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+        {/* Left text */}
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
+          initial={{ opacity: 0, x: -40 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.7 }}
         >
-          <div className="text-neuro-primary font-medium tracking-wider text-sm mb-4 uppercase">Automations</div>
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-6 leading-tight">
-            Workflows that run <br />
+          <div className="inline-flex items-center px-3 py-1 rounded-full border border-orange-500/30 text-orange-400 text-xs font-semibold tracking-widest uppercase mb-5">
+            Automations
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+            Workflows that run<br />
             <span className="text-gradient">on autopilot.</span>
           </h2>
-          <p className="text-lg text-slate-400 mb-8 leading-relaxed">
-            Stop doing manual data entry. Connect your existing tools and let our AI engine orchestrate responses, alerts, and formatting automatically.
+          <p className="text-slate-400 text-base leading-relaxed mb-8 max-w-md">
+            Stop doing repetitive work. Connect your apps, define logic once,
+            and let Fusion AI handle everything — from routing leads to sending reports.
           </p>
-          
           <ul className="space-y-4">
-            {["Drag-and-drop workflow builder", "Pre-built templates for fast setup", "Execution logic & advanced branching"].map((item, i) => (
-              <li key={i} className="flex items-center gap-3 text-slate-300 font-medium">
-                <CheckCircle2 className="w-5 h-5 text-neuro-primary" />
+            {[
+              'Visual drag-and-drop workflow builder',
+              'Pre-built templates for any use case',
+              'Advanced branching & conditional logic',
+            ].map((item, i) => (
+              <motion.li
+                key={i}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 + i * 0.1 }}
+                className="flex items-center gap-3 text-slate-300 text-sm"
+              >
+                <CheckCircle2 className="w-4 h-4 text-blue-400 shrink-0" />
                 {item}
-              </li>
+              </motion.li>
             ))}
           </ul>
         </motion.div>
 
+        {/* Right — workflow diagram */}
         <motion.div
-          initial={{ opacity: 0, x: 50 }}
+          initial={{ opacity: 0, x: 40 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative"
+          transition={{ duration: 0.7, delay: 0.2 }}
         >
-          <div className="absolute -inset-1 bg-gradient-to-tr from-neuro-primary to-neuro-secondary blur-2xl opacity-20" />
-          <Card className="relative bg-[#0F172A]/90 backdrop-blur-3xl border-white/10 p-2 overflow-hidden">
-            {/* Fake minimal UI for workflow */}
-            <div className="bg-[#0c1322] rounded-xl border border-white/5 h-[400px] p-6 relative">
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-px h-full bg-gradient-to-b from-transparent via-neuro-primary/50 to-transparent" />
-              
-              <div className="space-y-12 relative z-10 flex flex-col items-center">
-                <motion.div 
-                  initial={{ y: 20, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 }}
-                  className="bg-white/10 border border-neuro-primary/30 text-white px-6 py-3 rounded-xl shadow-lg flex items-center gap-3 backdrop-blur-md"
-                >
-                  <div className="w-2 h-2 rounded-full bg-neuro-primary shadow-[0_0_10px_#00F0FF]" />
-                  Trigger: New Customer
-                </motion.div>
-                
-                <motion.div 
-                  initial={{ y: 20, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ delay: 0.5 }}
-                  className="bg-white/5 border border-white/10 text-slate-300 px-6 py-3 rounded-xl shadow-lg flex items-center gap-3 backdrop-blur-md relative"
-                >
-                  Condition: Enterprise Plan
-                  <div className="absolute -left-12 top-1/2 -translate-y-1/2 w-8 h-px bg-white/20" />
-                </motion.div>
+          <div
+            className="rounded-2xl p-6"
+            style={{ background: '#0D0D0D', border: '1px solid rgba(255,255,255,0.07)' }}
+          >
+            <div className="flex flex-col items-center gap-0 py-4">
+              {STEPS.map((step, i) => (
+                <div key={i} className="flex flex-col items-center w-full">
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.85, y: 20 }}
+                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.4 + i * 0.18, duration: 0.5, ease: 'easeOut' }}
+                    whileHover={{ scale: 1.02 }}
+                    className="w-full max-w-xs px-5 py-3.5 rounded-xl flex items-center gap-3 font-medium text-sm"
+                    style={{
+                      background: step.bg,
+                      border: `1px solid ${step.border}`,
+                      color: step.color,
+                      boxShadow: `0 0 20px ${step.glow}`,
+                    }}
+                  >
+                    <motion.div
+                      className="w-2 h-2 rounded-full shrink-0"
+                      style={{ background: step.color }}
+                      animate={{ scale: [1, 1.4, 1], opacity: [1, 0.5, 1] }}
+                      transition={{ duration: 2, repeat: Infinity, delay: i * 0.6 }}
+                    />
+                    {step.label}
+                  </motion.div>
 
-                <motion.div 
-                  initial={{ y: 20, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ delay: 0.7 }}
-                  className="bg-neuro-primary/10 border border-neuro-primary text-neuro-primary px-6 py-3 rounded-xl shadow-[0_0_20px_rgba(0,240,255,0.1)] flex items-center gap-3 backdrop-blur-md font-medium"
-                >
-                  Action: Notify Ops Team
-                </motion.div>
-              </div>
+                  {i < STEPS.length - 1 && (
+                    <motion.div
+                      initial={{ scaleY: 0, opacity: 0 }}
+                      whileInView={{ scaleY: 1, opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.55 + i * 0.18, duration: 0.4 }}
+                      className="flex flex-col items-center my-2 origin-top"
+                    >
+                      <div className="w-px h-6 bg-gradient-to-b from-white/20 to-white/5" />
+                      <ArrowDown size={12} className="text-white/20 -mt-1" />
+                    </motion.div>
+                  )}
+                </div>
+              ))}
             </div>
-          </Card>
-        </motion.div>
 
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 1 }}
+              className="mt-4 flex justify-center"
+            >
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.97 }}
+                className="px-6 py-2 rounded-lg text-white text-sm font-semibold"
+                style={{
+                  background: 'linear-gradient(135deg, #3B82F6, #1D4ED8)',
+                  boxShadow: '0 0 20px rgba(59,130,246,0.3)',
+                }}
+              >
+                Run Workflow
+              </motion.button>
+            </motion.div>
+          </div>
+        </motion.div>
       </div>
     </section>
   )

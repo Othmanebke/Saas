@@ -4,14 +4,35 @@
 
 @layer base {
   body {
-    @apply antialiased selection:bg-neuro-primary/30 selection:text-white;
+    @apply antialiased selection:bg-blue-500/30 selection:text-white bg-black;
   }
 }
 
 .glass-panel {
-  @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl;
+  @apply bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] shadow-2xl;
 }
 
 .text-gradient {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-neuro-primary via-blue-400 to-neuro-secondary;
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-300 to-sky-300;
 }
+
+.fusion-card {
+  @apply bg-[#0D0D0D] border border-white/[0.08] rounded-2xl;
+}
+
+/* Beam line animation */
+@keyframes beam-slide {
+  0% { opacity: 0; transform: translateX(-100%) rotate(-25deg); }
+  30% { opacity: 0.6; }
+  70% { opacity: 0.6; }
+  100% { opacity: 0; transform: translateX(100%) rotate(-25deg); }
+}
+
+.beam-line {
+  animation: beam-slide 6s ease-in-out infinite;
+}
+
+.beam-line:nth-child(2) { animation-delay: 1.2s; }
+.beam-line:nth-child(3) { animation-delay: 2.4s; }
+.beam-line:nth-child(4) { animation-delay: 3.6s; }
+.beam-line:nth-child(5) { animation-delay: 4.8s; }

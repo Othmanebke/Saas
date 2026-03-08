@@ -11,27 +11,40 @@ import { Pricing } from './components/sections/Pricing'
 import { FAQ } from './components/sections/FAQ'
 import { CTA } from './components/sections/CTA'
 
+/* Stable particle props — computed once, no random during render */
+const PARTICLE_PROPS = Array.from({ length: 22 }, (_, i) => ({
+  top: `${(i * 41 + 7) % 100}%`,
+  left: `${(i * 57 + 13) % 100}%`,
+  opacity: ((i % 4) + 1) * 0.06,
+  duration: 14 + (i % 9) * 2,
+  delay: i * 0.7,
+  size: i % 5 === 0 ? 2 : 1,
+  color: i % 3 === 0 ? '#F97316' : i % 3 === 1 ? '#3B82F6' : '#60A5FA',
+}))
+
 function Particles() {
   return (
     <div className="fixed inset-0 pointer-events-none z-0">
-      {[...Array(20)].map((_, i) => (
+      {PARTICLE_PROPS.map((p, i) => (
         <motion.div
           key={i}
-          className="absolute w-1 h-1 bg-neuro-primary rounded-full"
-          initial={{
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-            opacity: Math.random() * 0.5 + 0.1,
-            scale: Math.random() * 1.5 + 0.5
+          className="absolute rounded-full"
+          style={{
+            top: p.top,
+            left: p.left,
+            width: p.size,
+            height: p.size,
+            background: p.color,
           }}
           animate={{
-            y: [0, -100, 0],
-            opacity: [0.1, 0.5, 0.1]
+            y: [0, -90, 0],
+            opacity: [p.opacity * 0.2, p.opacity, p.opacity * 0.2],
           }}
           transition={{
-            duration: Math.random() * 10 + 10,
+            duration: p.duration,
+            delay: p.delay,
             repeat: Infinity,
-            ease: "linear"
+            ease: 'linear',
           }}
         />
       ))}
@@ -41,20 +54,23 @@ function Particles() {
 
 function App() {
   const { scrollYProgress } = useScroll()
-  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 })
+  const scaleX = useSpring(scrollYProgress, { stiffness: 80, damping: 30, restDelta: 0.001 })
 
   return (
-    <div className="min-h-screen bg-neuro-900 text-slate-300 font-sans selection:bg-neuro-primary/30 selection:text-white overflow-x-hidden relative">
-      {/* Scroll Progress Bar */}
-      <motion.div 
-        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-neuro-primary to-neuro-secondary z-[60] origin-left"
-        style={{ scaleX }}
+    <div className="min-h-screen bg-black text-slate-300 font-sans selection:bg-blue-500/30 selection:text-white overflow-x-hidden relative">
+      {/* Scroll Progress Bar — blue → orange gradient */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-[2px] z-[60] origin-left"
+        style={{
+          scaleX,
+          background: 'linear-gradient(to right, #3B82F6, #60A5FA, #F97316)',
+        }}
       />
-      
+
       <Particles />
       <Navbar />
-      
-      <main className="relative z-10 pt-20">
+
+      <main className="relative z-10">
         <Hero />
         <TrustedBy />
         <Features />
